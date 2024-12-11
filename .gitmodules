@@ -1,0 +1,3 @@
+[submodule "git-practice"]
+	path = git-practice
+	url = git@github.com:NicolasRAA/git-practice.git
