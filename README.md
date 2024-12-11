@@ -79,3 +79,93 @@
 
 ## Работа с ветками
 
+### 1. Создание нового файла
+  - Создал новый текстовый файл `book.txt` с помощью редактора `nano`:
+    ![nano book txt](https://github.com/user-attachments/assets/2447a79d-67f6-42bd-adf3-a09fdf397048)  
+  - Внутри файла добавил базовую структуру книги:
+    ![text inside book txt](https://github.com/user-attachments/assets/bd701d4d-0fcd-4dfb-9c29-a86589fadac6)
+
+### 2. Создание новой ветки и добавление изменений
+  - Создал и одновременно переключился на новую ветку `feature-login` с помощью команды:
+    ![git checkout -b feature-login](https://github.com/user-attachments/assets/8c6e43b3-ed71-4f96-89b6-30d06f8545ec)
+  - В новой ветке открыл файл `book.txt` и добавил новый раздел "Глава 3: Вход в систему":
+    ![new text on book txt](https://github.com/user-attachments/assets/7220d8d1-6933-4a7b-bb34-4fc675a2d10b)
+
+### 3. Загрузка изменений в ветку `feature-login`
+  - Сохранил изменения и загрузил их в ветку `feature-login` на GitHub с помощью следующих команд:
+    ![git add commit and push feature login](https://github.com/user-attachments/assets/93775b0b-6cb8-47a9-bc1c-9c451e0c517b)
+  - Перешёл на GitHub и убедился, что файл `book.txt` с добавленной третьей главой находится в ветке `feature-login`:
+    ![book txt in github on feature login branch](https://github.com/user-attachments/assets/0fb1555f-3ee7-47b6-b98c-f7a9486aeccf)
+
+---
+
+## Работа с удаленным репозиторием
+
+### 1. Внесение изменений в основной ветке
+  - Переключился на ветку `main` с помощью команды:
+    ![git checkout main after feature login](https://github.com/user-attachments/assets/fc8c3da3-2132-42e2-9c4c-bc4f9fe7558c)  
+  - Открыл файл `book.txt` в редакторе `nano` и добавил описание книги и текст для первых двух глав:
+    ![nano book en main](https://github.com/user-attachments/assets/bc3b6ae6-5009-4f4b-af06-396a9fd6fc68)  
+    ![text in book txt on main](https://github.com/user-attachments/assets/75b3dba3-6f53-4ff9-9d04-8059b3e83646)  
+  - Сохранил изменения и загрузил их в удалённый репозиторий с помощью следующих команд:  
+    ![git add commit and push book on main](https://github.com/user-attachments/assets/40ea316d-1f81-40b8-b653-3f99d1a9db99)  
+
+---
+
+## Моделирование конфликта
+
+### 1. Внесение изменений в ветке `feature-login`
+  - Переключился на ветку `feature-login` с помощью команды:  
+    ![git checkout feature login](https://github.com/user-attachments/assets/4aa66bd0-6ac2-4155-81ac-cc33854673b4)  
+  - Открыл файл `book.txt` и изменил текст для второй главы:  
+    ![new text on book txt again on feature login](https://github.com/user-attachments/assets/6a0e3f97-276a-4408-9ce7-d0d916351e07)  
+  - Сохранил изменения и загрузил их в ветку `feature-login` на GitHub:
+    ![git add commit and push book again on feature login](https://github.com/user-attachments/assets/ce484af0-982e-4387-8bbf-c6a24f7b8622)  
+
+---
+
+## Разрешение конфликта
+
+### 1. Попытка слияния изменений
+  - Переключился на основную ветку `main` с помощью команды:
+    ```
+    git checkout main
+    ```
+  - Выполнил команду для получения последних изменений из удалённого репозитория `git pull origin main`:
+    ![git checkout main pull and push with conflict](https://github.com/user-attachments/assets/2246ecad-32df-4f3d-90e4-9763971abc42)  
+> [!NOTE]
+> Команда `git pull` позволяет загрузить и интегрировать изменения из удалённого репозитория в текущую ветку. Она объединяет команды `git fetch` и `git merge` в одном шаге.
+  - Попробовал слить изменения из ветки `feature-login` с помощью команды:  
+    ```
+    git merge feature-login
+    ```
+  - И как показано на фото, я получил сообщение о конфликте:
+    ```
+    Auto-merging book.txt
+    CONFLICT (add/add): Merge conflict in book.txt
+    Automatic merge failed; fix conflicts and then commit the result.
+    ```
+> [!NOTE]
+> Конфликты возникают, когда изменения в разных ветках затрагивают один и тот же участок кода. Git не может автоматически объединить такие изменения, и требуется ручное разрешение конфликта.
+
+---
+
+## Разрешение конфликта
+
+### 1. Разрешение конфликта вручную  
+  - Открыл файл `book.txt` и увидел следующее содержимое:
+    ![text in book txt with conflict](https://github.com/user-attachments/assets/453df020-130d-41e5-8aa0-bc47ee864082)  
+  - Удалил конфликтующие метки (`<<<<<<<`, `=======`, `>>>>>>>`) и оставил текст из ветки `feature-login`:
+    ![book txt with the conflic solved](https://github.com/user-attachments/assets/e928253c-78ea-4076-971a-783080d87558)  
+  - Сохранил файл и зафиксировал разрешение конфликта:
+    ![git add commit and push book resolved conflict](https://github.com/user-attachments/assets/b7b8c5c9-7c3e-44bd-bd27-6b0be6e132f2)
+      - При использовании команды `git commit`, как показано на картинке, я получил сообщение "Resolved conflict in chapter 2", что свидетельствует об успешном разрешении конфликта.
+
+---
+
+## Автоматизация проверки формата файлов при коммите
+
+
+
+
+
